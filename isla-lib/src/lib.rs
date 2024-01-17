@@ -62,3 +62,5 @@ pub mod trace;
 pub mod zencode;
 
 pub const ISLA_VERSION: &str = env!("ISLA_VERSION");
+
+pub use bincode;

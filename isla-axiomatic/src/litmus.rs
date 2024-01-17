@@ -51,11 +51,11 @@ use crate::page_table;
 use crate::sandbox::SandboxedCommand;
 
 pub mod exp;
-mod exp_lexer;
+pub mod exp_lexer;
 mod format;
 lalrpop_mod!(
     #[allow(clippy::all)]
-    exp_parser,
+    pub exp_parser,
     "/litmus/exp_parser.rs"
 );
 
@@ -578,7 +578,7 @@ fn parse_locations(litmus_toml: &Value, symbolic_addrs: &HashMap<String, u64>) -
     Ok(locations)
 }
 
-fn parse_sizeof_types(litmus_toml: &Value) -> Result<HashMap<String, u32>, String> {
+pub fn parse_sizeof_types(litmus_toml: &Value) -> Result<HashMap<String, u32>, String> {
     let sym_types_table = match litmus_toml.get("types") {
         Some(value) => {
             value.as_table().ok_or_else(|| "[types] must be a table of <address> = <type> pairs".to_string())?
@@ -783,7 +783,7 @@ impl fmt::Display for PageSetupLocation {
     }
 }
 
-fn format_error_page_table_setup<T, E>(source: &str, error: lalrpop_util::ParseError<usize, T, E>) -> String
+pub fn format_error_page_table_setup<T, E>(source: &str, error: lalrpop_util::ParseError<usize, T, E>) -> String
 where
     T: fmt::Display,
     E: fmt::Display,

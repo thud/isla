@@ -42,7 +42,7 @@ fn version() -> String {
     match git_version() {
         None => {
             let mut s = String::from("v");
-            s.push_str(env!("CARGO_PKG_VERSION"));
+            s.push_str(env!("CARGO_PKG_VERSION")); // TODO: this is not valid!
             s
         }
         Some(version) => version,
